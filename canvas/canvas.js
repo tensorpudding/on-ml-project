@@ -6,7 +6,7 @@
 // Server connection handling code
 // Uses unprotected WebSockets connection to server running tf-server.py
 
-let WS_HOST = "192.168.0.117";
+let WS_HOST = "dev.moorman.xyz";
 let WS_PORT = 8850;
 
 let server_socket = new WebSocket(`ws://${WS_HOST}:${WS_PORT}`, "tf");
@@ -30,8 +30,9 @@ server_socket.onmessage = function (e) {
 // Response event handlers:
 
 print_prediction = function (value) {
-    tb = document.getElementById('prediction');
-    tb.value = `TF model predicts: ${value}`;
+    //tb = document.getElementById('prediction');
+    //tb.value = `TF model predicts: ${value}`;
+    bot_predict(null);
 };
 
 // Top-level event handlers:
