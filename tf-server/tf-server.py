@@ -4,19 +4,21 @@
 # Copyright 2022
 # AUTHORS: Michael Moorman, Nghia
 
+import os
 import asyncio
-import websockets
+import websockets as ws
 import numpy as np
 import tensorflow as tf
 import cv2
-import base64
+import base64 as b64
 
 # Load TF handwriting recognition model
 model = tf.keras.models.load_model('/model')
+# Get server configuration information
+SERVER_HOST = os.environ.get('TF_SERVER_HOST') or "localhost"
+SERVER_PORT = os.environ.get('TF_SERVER_PORT') or 8850
 
 def process_image(b64_data):
-    print(b64_data)
-    print(base64.b64decode(b64_data[22:]))
     png_data = np.frombuffer(base64.b64decode(b64_data[22:]), np.uint8)
     np_data = cv2.imdecode(png_data, cv2.IMREAD_COLOR)
     gray = cv2.cvtColor(np_data, cv2.COLOR_BGR2GRAY)
@@ -33,7 +35,7 @@ async def process_request(socket):
         await socket.send(str(prediction))
 
 async def main():
-    async with websockets.serve(process_request, "0.0.0.0", 8850, subprotocols=["tf"]):
+    async with ws.serve(process_request, SERVER_HOST, SERVER_PORT, subprotocols=["tf"]):
         print("Starting server")
         await asyncio.Future()
 
