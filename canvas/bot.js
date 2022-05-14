@@ -10,7 +10,7 @@ function paint_bot(_) {
     bot_image.onload = () => {
         ctx.drawImage(bot_image, 0, 0);
     };
-    bot_image.src = 'bot.png';
+    bot_image.src = 'assets/bot.png';
 }
 
 function bot_predict(prediction) {
@@ -21,5 +21,5 @@ function bot_predict(prediction) {
         ctx.drawImage(pred_image, speech_bubble_offset_x, speech_bubble_offset_y);
         console.log("Printed speech bubble");
     };
-    pred_image.src = `bot-${prediction}.png`;
+    pred_image.src = `assets/bot-${prediction}.png`;
 }
