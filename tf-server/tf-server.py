@@ -19,7 +19,7 @@ SERVER_HOST = os.environ.get('TF_SERVER_HOST') or "localhost"
 SERVER_PORT = os.environ.get('TF_SERVER_PORT') or 8850
 
 def process_image(b64_data):
-    png_data = np.frombuffer(base64.b64decode(b64_data[22:]), np.uint8)
+    png_data = np.frombuffer(b64.b64decode(b64_data[22:]), np.uint8)
     np_data = cv2.imdecode(png_data, cv2.IMREAD_COLOR)
     gray = cv2.cvtColor(np_data, cv2.COLOR_BGR2GRAY)
     resized = cv2.resize(gray, (28,28), interpolation = cv2.INTER_AREA)
