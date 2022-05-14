@@ -32,7 +32,7 @@ server_socket.onmessage = function (e) {
 print_prediction = function (value) {
     //tb = document.getElementById('prediction');
     //tb.value = `TF model predicts: ${value}`;
-    bot_predict(null);
+    bot_predict(value);
 };
 
 // Top-level event handlers:
@@ -144,5 +144,6 @@ function reset_canvas(e) {
     context.fillStyle = '#000000';
     context.fillRect(0,0,m*128,m*128);
     context.fillStyle = '#ffffff';
-    context.strokeStyle = '#ffffff';    
+    context.strokeStyle = '#ffffff';
+    paint_bot();   
 }
