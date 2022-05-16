@@ -21,3 +21,13 @@ button {
 #prediction {
     font-size: 36px;
 }
+
+html {
+    background-color: black;
+    background: url("assets/bg.jpg");
+    background-size:cover;
+    background-repeat:no-repeat;
+    overflow: hidden;
+    background-color: rgba(30, 30, 82, .93);
+    background-blend-mode: soft-light; 
+}
