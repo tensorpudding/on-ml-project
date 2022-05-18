@@ -2,13 +2,16 @@
 
 * COMPLETE: Train CNN ML model
 * COMPLETE: Python server using WS API
-* TODO: JS Canvas client UI
+* WORKING: JS Canvas
 
 ## Currently working on:
 
 * Docker Compose - better workflow
 * Make it pretty: flesh out CSS layout, make it more sane
 * Remove the dynamic resize and give up on mobile working right
+* Maybe painbrush should draw at pointer center, rather than left corner?
+* Update training: load saved model, train with new supervised samples, and reload.
+  - https://stackoverflow.com/questions/62708611/how-do-i-retrain-an-already-trained-tensorflow-model-with-new-data
 
 # ML Phase: tensorflow:
 
