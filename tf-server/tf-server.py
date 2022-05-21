@@ -11,6 +11,8 @@ import numpy as np
 import tensorflow as tf
 import cv2
 import base64 as b64
+import json
+import signal
 
 # Load TF handwriting recognition model
 model = tf.keras.models.load_model('/model')
@@ -28,11 +30,26 @@ def process_image(b64_data):
     return newimg
 
 async def process_request(socket):
-    async for b64_data in socket:
-        img = process_image(b64_data)
-        prediction = np.argmax(model.predict(img))
-        print(f"Sending prediction: {prediction}")
-        await socket.send(str(prediction))
+    """
+    Main method for processing input.
+    Input can be images for prediction, or user-provided "ground truth" for the previous prediction
+    """
+    async for json_message in socket:
+        message = json.loads(json_message)
+        if message['type'] == 'image':
+            img = process_image(message['b64_data'])
+            prediction = np.argmax(model.predict(img))
+            print(f"Sending prediction: {prediction}")
+            await socket.send(str(prediction))
+        elif message['type'] == 'truth':
+            # Processing samples code goes here
+            img = process_image(message['b64_data'])
+            truth = message['ground_truth']
+            model.fit(np.array([img]), np.array([truth]))
+            await socket.send(f"We have trained the model on this sample with ground truth {truth}")
+        else:
+            # Raise some kind of error here
+            pass
 
 async def main():
     async with ws.serve(process_request, SERVER_HOST, SERVER_PORT, subprotocols=["tf"]):

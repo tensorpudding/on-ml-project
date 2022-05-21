@@ -12,6 +12,12 @@
 * Maybe painbrush should draw at pointer center, rather than left corner?
 * Update training: load saved model, train with new supervised samples, and reload.
   - https://stackoverflow.com/questions/62708611/how-do-i-retrain-an-already-trained-tensorflow-model-with-new-data
+* Trying to figure out how to respond to SIGTERM/SIGINT to save model on tf-server.py?
+  - Train-as-you-go with user-provided ground truth: expand the WS API to include this DONE
+  - Handle daemon exit with model-save routine: what is the best practice?
+    - Need to have checkpointed versions? Is this helpful?
+    - Current idea: handle SIGTERM/SIGINT using python's signal library, to do model saving before shutdown
+    - How does this conflict with async/await?
 
 # ML Phase: tensorflow:
 
